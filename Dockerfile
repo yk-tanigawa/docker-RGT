@@ -4,7 +4,3 @@ RUN pip install cython numpy scipy
 # RUN pip install pyBigWig
 RUN conda install pybigwig -c bioconda
 RUN pip install RGT
-
-#USER jovyan
-#WORKDIR /home/jovyan/rgtdata
-#RUN python setupLogoData.py --all
