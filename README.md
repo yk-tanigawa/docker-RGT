@@ -2,7 +2,7 @@
 
 This is a Docker image for [Regulatory Genomics Toolbox](https://www.regulatory-genomics.org/).
 
-## Docker
+## Build the Docker image
 To build the Docker image, run the command
 
 ```
@@ -17,13 +17,23 @@ To pull from Dockerhub
 docker pull yosuketanigawa/rgt
 ```
 
-To run a container using the image above
+## Set up the reference dataset
 
 ```
 mount_dir=@@@ # specify the directory that you'd like to mount for the analysis with RGT
 rgtdata_dir=@@@ # specify the directory where you installed your local copy of the reference data for RGT
+```
 
-docker run --rm -w $(readlink -f $(pwd)) --user=$(id -u):$(id -g) -e NB_USER=jovyan -e NB_UID=17737 -e NB_GID=559 --mount type=bind,src=${mount_dir},dst=${mount_dir} --mount type=bind,src=${rgtdata_dir},dst=/home/jovyan/rgtdata yosuketanigawa/rgt rgt-motifanalysis
+### Download the logo data
+
+```
+docker run --rm -w /home/jovyan/rgtdata --user=$(id -u):$(id -g) -e NB_USER=jovyan -e NB_UID=$(id -u) -e NB_GID=$(id -g) --mount type=bind,src=${rgtdata_dir},dst=/home/jovyan/rgtdata yosuketanigawa/rgt python setupLogoData.py --all
+```
+
+### Running motif analysis
+
+```
+docker run --rm -w $(readlink -f $(pwd)) --user=$(id -u):$(id -g) -e NB_USER=jovyan -e NB_UID=$(id -u) -e NB_GID=$(id -g) --mount type=bind,src=${mount_dir},dst=${mount_dir} --mount type=bind,src=${rgtdata_dir},dst=/home/jovyan/rgtdata yosuketanigawa/rgt rgt-motifanalysis
 ```
 
 ## Acknowledgement
