@@ -37,6 +37,10 @@ docker run --rm -w /home/jovyan/rgtdata --user=$(id -u):$(id -g) -e NB_USER=jovy
 docker run --rm -w /home/jovyan/rgtdata --user=$(id -u):$(id -g) -e NB_USER=jovyan -e NB_UID=$(id -u) -e NB_GID=$(id -g) --mount type=bind,src=${rgtdata_dir},dst=/home/jovyan/rgtdata yosuketanigawa/rgt python setupLogoData.py --all
 ```
 
+## How to use the docker image
+
+Here we show some example use cases:
+
 ### Running motif analysis
 
 ```
